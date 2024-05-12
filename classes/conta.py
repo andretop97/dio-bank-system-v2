@@ -1,12 +1,39 @@
+from datetime import datetime, date
+from functools import wraps
+
 from classes.historico import Historico
+from utils.decorators import log
 
 class Conta:
-    def __init__(self, numero: int, cliente_id: int) -> None:
+    def _validar_limite_transacao(func: callable):
+        @wraps(func)
+        def envelope(self, *args, **kwargs):
+            if self._hoje != datetime.now().date:
+                self._hoje = datetime.now().date
+                self._qtd_transacao_diaria = 0
+
+            if self._qtd_transacao_diaria <= self._limite_transacao_diaria:
+                print("Operacao negada: Limite de transações diarias atingido")
+                return
+
+            resultado = func(self, *args, **kwargs)
+
+            self._qtd_transacao_diaria += 1
+
+            return resultado
+
+        return envelope
+    
+    def __init__(self, numero: int, cliente_id: int, limite_transacao_diaria: int = 10) -> None:
         self._saldo: float = 0
         self._numero: int = numero
         self._agencia: str = "0001"
         self._cliente: int = cliente_id
         self._historico: Historico = Historico()
+
+        self._limite_transacao_diaria = limite_transacao_diaria
+        self._qtd_transacao_diaria = 0
+        self._hoje: date = datetime.now().date()
 
     @property
     def saldo(self) -> float:
@@ -33,6 +60,8 @@ class Conta:
     def nova_conta(cls, cliente_id: int, numero: int):
         return cls(numero, cliente_id)
 
+    @log
+    @_validar_limite_transacao
     def sacar(self, valor: float) -> bool:
         if valor > self._saldo:
             print("Operação negada: Valor requerido superior ao seu saldo")
@@ -49,6 +78,8 @@ class Conta:
 
         return True
 
+    @log
+    @_validar_limite_transacao
     def depositar(self, valor: float) -> bool:
         if valor < 0:
             print("Operação negada. Valor tem que ser positivo")

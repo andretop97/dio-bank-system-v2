@@ -3,8 +3,9 @@ from datetime import datetime
 from classes.cliente import Cliente
 from classes.conta import Conta
 
-
+from utils.decorators import log
 from utils.list_operations import find_object_by_attribute
+
 
 class Bank:
     def __init__(self) -> None:
@@ -12,6 +13,7 @@ class Bank:
         self._clientes: list[Cliente] = []
         self._count = 0
 
+    @log
     def criar_conta(self, identificador: str) -> None:
         self._count += 1
 
@@ -24,6 +26,7 @@ class Bank:
         self._contas.append(nova_conta)
         print("Conta cadastrada com sucesso")
 
+    @log
     def criar_cliente(self, endereco: str, identificador: str) -> None:
         user = find_object_by_attribute(self._clientes, "identificador", identificador)
         if user:
@@ -34,6 +37,7 @@ class Bank:
         self._clientes.append(novo_cliente)
         print("Cliente cadastrado com sucesso")
 
+    @log
     def listar_contas(self, identificador: str) -> list[Conta]:
         cliente: Cliente = find_object_by_attribute(self._clientes, "identificador", identificador)
         if not cliente:
@@ -125,7 +129,7 @@ Digite um dos valores a baixo para realizar uma operação:
             conta.sacar(valor=valor)
             return numero
         elif command == "e":
-            transacoes = conta.historico.transacoes
+            transacoes = conta.historico.gerar_relatorio()
             for transacao in transacoes:
                 print(f'Tipo: {transacao["tipo"]}, valor: {transacao["valor"]}, data: {transacao["data"]}.')
             print(f'\nSaldo: R$ {conta.saldo: .2f}')

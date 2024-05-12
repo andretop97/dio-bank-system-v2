@@ -14,3 +14,11 @@ class Historico():
             "valor": valor,
             "data": datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         })
+
+    def gerar_relatorio(self, tipo = None):
+        for transacao in self._transacoes:
+            if not tipo:
+                yield transacao
+
+            if transacao['tipo'] == tipo:
+                yield transacao
