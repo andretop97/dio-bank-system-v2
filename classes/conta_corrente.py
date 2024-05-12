@@ -9,12 +9,12 @@ class ContaCorrente(Conta):
     def _validar_limite_transacao(func: callable):
         @wraps(func)
         def envelope(self, *args, **kwargs):
-            if self._hoje != datetime.now().date:
-                self._hoje = datetime.now().date
+            if self._hoje != datetime.now().date():
+                self._hoje = datetime.now().date()
                 self._qtd_transacao_diaria = 0
                 self._daily_withdrawal_qtd = 0
 
-            if self._qtd_transacao_diaria <= self._limite_transacao_diaria:
+            if self._qtd_transacao_diaria >= self._limite_transacao_diaria:
                 print("Operacao negada: Limite de transações diarias atingido")
                 return
 

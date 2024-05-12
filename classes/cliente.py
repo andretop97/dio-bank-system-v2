@@ -7,6 +7,9 @@ class Cliente():
         self._contas: list[Conta] = []
         self._id: uuid.UUID = uuid.uuid4()
         self._identificador: str = identificador
+    
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__}: ({self._identificador})>'
 
     @property
     def id(self) -> uuid.UUID:

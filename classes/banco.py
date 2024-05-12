@@ -1,4 +1,4 @@
-from datetime import datetime
+from uuid import UUID, uuid4
 
 from classes.cliente import Cliente
 from classes.conta import Conta
@@ -9,9 +9,13 @@ from utils.list_operations import find_object_by_attribute
 
 class Bank:
     def __init__(self) -> None:
+        self._uuid: UUID = uuid4()
         self._contas: list[Conta] = []
         self._clientes: list[Cliente] = []
         self._count = 0
+
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__}: ({self._uuid})>'
 
     @log
     def criar_conta(self, identificador: str) -> None:

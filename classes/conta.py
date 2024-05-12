@@ -8,11 +8,12 @@ class Conta:
     def _validar_limite_transacao(func: callable):
         @wraps(func)
         def envelope(self, *args, **kwargs):
-            if self._hoje != datetime.now().date:
-                self._hoje = datetime.now().date
+            if self._hoje != datetime.now().date():
+                self._hoje = datetime.now().date()
                 self._qtd_transacao_diaria = 0
+                print("Batata")
 
-            if self._qtd_transacao_diaria <= self._limite_transacao_diaria:
+            if self._qtd_transacao_diaria >= self._limite_transacao_diaria:
                 print("Operacao negada: Limite de transações diarias atingido")
                 return
 
@@ -24,7 +25,7 @@ class Conta:
 
         return envelope
     
-    def __init__(self, numero: int, cliente_id: int, limite_transacao_diaria: int = 10) -> None:
+    def __init__(self, numero: int, cliente_id: int, limite_transacao_diaria: int = 3) -> None:
         self._saldo: float = 0
         self._numero: int = numero
         self._agencia: str = "0001"
@@ -35,6 +36,12 @@ class Conta:
         self._qtd_transacao_diaria = 0
         self._hoje: date = datetime.now().date()
 
+    def __str__(self) -> str:
+        return f'{{conta: {self._numero}, agencia: {self._agencia}, cliente: {self._cliente}}}'
+    
+    def __repr__(self) -> str:
+        return f'<{self.__class__.__name__}: ({self.numero})>'
+    
     @property
     def saldo(self) -> float:
         return self._saldo

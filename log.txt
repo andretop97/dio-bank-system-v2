@@ -1,0 +1,10 @@
+{funcao: CRIAR_CLIENTE,  args: (<Bank: (3b37ab9c-59ad-4d0e-abaa-408b42a19fb1)>, '12', '12'), kwargs: {}, resultado: None, data: 12/05/2024, 12:18:45}
+{funcao: CRIAR_CONTA,  args: (<Bank: (3b37ab9c-59ad-4d0e-abaa-408b42a19fb1)>, '12'), kwargs: {}, resultado: None, data: 12/05/2024, 12:18:46}
+{funcao: LISTAR_CONTAS,  args: (<Bank: (3b37ab9c-59ad-4d0e-abaa-408b42a19fb1)>, 'd'), kwargs: {}, resultado: [], data: 12/05/2024, 12:18:48}
+{funcao: CRIAR_CLIENTE,  args: (<Bank: (003ee77a-339a-4503-bb9a-ca504eccb461)>, '12', '12'), kwargs: {}, resultado: None, data: 12/05/2024, 12:19:12}
+{funcao: CRIAR_CONTA,  args: (<Bank: (003ee77a-339a-4503-bb9a-ca504eccb461)>, '12'), kwargs: {}, resultado: None, data: 12/05/2024, 12:19:15}
+{funcao: LISTAR_CONTAS,  args: (<Bank: (003ee77a-339a-4503-bb9a-ca504eccb461)>, '12'), kwargs: {}, resultado: [<Conta: (1)>], data: 12/05/2024, 12:19:18}
+{funcao: DEPOSITAR,  args: (<Conta: (1)>, 500.0), kwargs: {}, resultado: True, data: 12/05/2024, 12:19:24}
+{funcao: CRIAR_CONTA,  args: (<Bank: (003ee77a-339a-4503-bb9a-ca504eccb461)>, '12'), kwargs: {}, resultado: None, data: 12/05/2024, 12:19:36}
+{funcao: LISTAR_CONTAS,  args: (<Bank: (003ee77a-339a-4503-bb9a-ca504eccb461)>, '12'), kwargs: {}, resultado: [<Conta: (1)>, <Conta: (2)>], data: 12/05/2024, 12:19:41}
+{funcao: DEPOSITAR,  args: (<Conta: (2)>, 500.0), kwargs: {}, resultado: True, data: 12/05/2024, 12:19:45}
